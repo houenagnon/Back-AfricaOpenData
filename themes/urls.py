@@ -1,9 +1,11 @@
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
+from themes import views
 
-import themes.views
-
-app_name = 'themes'
 
 urlpatterns = [
-    path('', themes.views.test),
+    path('',views.ThemeList.as_view()),
+    path('<uuid:pk>/', views.ThemeDetail.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

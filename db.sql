@@ -16,8 +16,8 @@ CREATE TABLE users (
 -- Table des thématiques
 CREATE TABLE themes (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name VARCHAR(255) NOT NULL UNIQUE,
-    description TEXT,
+    theme_name VARCHAR(255) NOT NULL UNIQUE,
+    theme_description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -26,8 +26,8 @@ CREATE TABLE themes (
 CREATE TABLE subthemes (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     theme_id UUID NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
+    subtheme_name VARCHAR(255) NOT NULL,
+    subtheme_description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_theme FOREIGN KEY (theme_id) REFERENCES themes (id) ON DELETE CASCADE
@@ -37,9 +37,9 @@ CREATE TABLE subthemes (
 CREATE TABLE files (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     subtheme_id UUID NOT NULL,
-    filename VARCHAR(255) NOT NULL,
+    sub_filename VARCHAR(255) NOT NULL,
     file_path VARCHAR(500) NOT NULL,
-    source VARCHAR(255),
+    source_link VARCHAR(255),
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_subtheme FOREIGN KEY (subtheme_id) REFERENCES subthemes (id) ON DELETE CASCADE
@@ -59,7 +59,7 @@ CREATE TABLE downloads (
 CREATE TABLE logs (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID NOT NULL,
-    action VARCHAR(255) NOT NULL,
+    logs_action VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_log_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL
 );
