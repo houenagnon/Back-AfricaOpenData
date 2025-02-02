@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de fichier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            width: 90%;
+        }
+        button {
+            background-color: #2f3988;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #56b5e1;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Test d'Upload de Fichier</h2>
+    
+    <form id="uploadForm">
+        <label>Nom du fichier :</label>
+        <input type="text" name="filename" id="filename" placeholder="Nom du fichier" required>
+        
+        <label>Subtheme ID :</label>
+        <input type="text" name="subtheme_id" id="subtheme_id" placeholder="ID du subtheme" required>
+        
+        <label>Fichier :</label>
+        <input type="file" name="file" id="file" required>
+        
+        <button type="submit">Uploader</button>
+    </form>
+
+    <h3 id="message"></h3>
+
+    <script>
+        document.getElementById("uploadForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let formData = new FormData();
+            formData.append("filename", document.getElementById("filename").value);
+            formData.append("subtheme_id", document.getElementById("subtheme_id").value);
+            formData.append("file", document.getElementById("file").files[0]);
+
+            fetch("http://127.0.0.1:8000/api/files/", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.id) {
+                    document.getElementById("message").innerHTML = "✅ Fichier uploadé avec succès : <a href='" + data.file + "' target='_blank'>Voir le fichier</a>";
+                } else {
+                    document.getElementById("message").innerHTML = "❌ Erreur : " + JSON.stringify(data);
+                }
+            })
+            .catch(error => {
+                document.getElementById("message").innerHTML = "❌ Erreur de connexion : " + error;
+            });
+        });
+    </script>
+
+</body>
+</html>

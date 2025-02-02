@@ -12,3 +12,5 @@ class Log(models.Model):
 
     def __str__(self):
         return f"{self.user.username if self.user else 'Unknown'} - {self.action}"
+    
+    
