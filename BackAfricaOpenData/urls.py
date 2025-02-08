@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/files/', include('files.urls')),
     path('api/users/', include('users.urls')),
     path('api/logs/', include('logs.urls')),
+    path('api/subthemes/', include('subthemes.urls'))
     
 ]
 
