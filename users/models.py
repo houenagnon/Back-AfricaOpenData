@@ -21,11 +21,9 @@ class User(AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=150, unique=True)
-    password = models.CharField(max_length=255)
+    # password = models.CharField(max_length=255)
     profession = models.CharField(max_length=150, blank=True, null=True)
-    
-    ROLE_CHOICES = [('admin', 'Admin'), ('user', 'User')]
-    is_admin = models.CharField(max_length=50, choices=ROLE_CHOICES, default='user')
+    is_admin = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

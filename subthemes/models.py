@@ -5,7 +5,7 @@ from themes.models import Theme
 
 class Subtheme(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    theme = models.ForeignKey(Theme, on_delete=models.CASCADE, related_name='subthemes')
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     

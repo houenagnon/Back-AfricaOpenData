@@ -4,7 +4,7 @@ from subthemes.models import Subtheme
 
 class File(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    subtheme = models.ForeignKey(Subtheme, on_delete=models.CASCADE, related_name='files')
+    subtheme = models.ForeignKey(Subtheme, on_delete=models.CASCADE)
     filename = models.CharField(max_length=255)
     file = models.FileField(upload_to='uploads/')  
     source = models.CharField(max_length=255, blank=True, null=True)

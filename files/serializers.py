@@ -4,11 +4,6 @@ from subthemes.serializers import SubthemeSerializer
 from subthemes.models import Subtheme
 
 class FileSerializer(serializers.ModelSerializer):
-    subtheme = SubthemeSerializer(read_only=True)
-    subtheme_id = serializers.PrimaryKeyRelatedField(
-        queryset=Subtheme.objects.all(), source='subtheme', write_only=True
-    )
-
     class Meta:
         model = File
-        fields = ['id', 'subtheme', 'subtheme_id', 'filename', 'file', 'source', 'uploaded_at', 'updated_at']
+        fields = '__all__'

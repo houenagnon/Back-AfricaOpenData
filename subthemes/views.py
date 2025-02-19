@@ -19,15 +19,15 @@ class SubthemeListCreateAPIView(APIView):
         except Theme.DoesNotExist:
             return Response({"error": "Thématique non trouvée."}, status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request, theme_id, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         """Créer un nouveau sous-thème pour une thématique
         if not request.user.is_admin:
             return Response({"error": "Permission refusée."}, status=status.HTTP_403_FORBIDDEN)"""
         
         try:
-            Theme.objects.get(id=theme_id)  # Vérifie que le thème existe
-            data = request.data.copy()  # Crée une copie mutable de request.data
-            data['theme_id'] = theme_id
+            # Vérifie que le thème existe
+            if Theme.objects.get(id=theme_id):
+                data = request.data.copy()  # Crée une copie mutable de request.data
             serializer = SubthemeSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
